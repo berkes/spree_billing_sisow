@@ -1,6 +1,7 @@
 module SpreeBillingSisow
   class Engine < Rails::Engine
     require 'spree/core'
+    require 'sisow'
     isolate_namespace Spree
     engine_name 'spree_billing_sisow'
 
