@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_billing_sisow'
-  s.version     = '0.0.4'
+  s.version     = '0.1.0'
   s.summary     = 'Spree billing integration for Sisow payment provider'
   s.description = 'Spree billing integration for Sisow iDeal /Bancontact / Sofort payments'
   s.required_ruby_version = '>= 1.9.3'
@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 2.2.0'
-  s.add_dependency 'spree_frontend', '~> 2.2.0'
+  s.add_dependency 'spree_core', '~> 2.3.0'
+  s.add_dependency 'spree_frontend', '~> 2.3.0'
   s.add_dependency 'sisow', '~> 1.5'
 
   s.add_development_dependency 'capybara', '~> 2.1'

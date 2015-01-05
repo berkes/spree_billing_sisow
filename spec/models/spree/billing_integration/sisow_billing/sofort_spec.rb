@@ -24,6 +24,7 @@ describe Spree::BillingIntegration::SisowBilling::Sofort do
     order.stub(:total) { 3 }
     order.stub(:number) { "O12345678" }
     order.stub_chain(:payments, :create).and_return(payment)
+    Spree::Store.stub(:current).and_return double(Spree::Store, name: "Spree Demo Site")
 
     #payment.should_receive(:started_processing!)
     #payment.should_receive(:pend!)

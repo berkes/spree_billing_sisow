@@ -48,7 +48,7 @@ module Spree
       @sisow_transaction.update(entrance_code: @payment.identifier)
 
       #Set the options needed for the Sisow payment url
-      opts[:description] = "#{Spree::Config.site_name} - Order: #{@order.number}"
+      opts[:description] = "#{Spree::Store.current.name} - Order: #{@order.number}"
       opts[:purchase_id] = @order.number
       opts[:amount] = (@order.total * 100).to_i
       opts[:entrance_code] = @payment.identifier
