@@ -24,28 +24,28 @@ describe Spree::SisowStatusController, type: :controller do
     test_params = params.clone
     test_params.delete(:use_route)
     test_params.merge!({"controller" => "spree/sisow_status", "action"=>"update"})
-    billing_integration.should_receive(:process_response).with(test_params)
+    expect(billing_integration).to receive(:process_response).with(test_params)
 
-    Spree::Order.stub(:find_by_number!).with("O12345678").and_return(order)
-    Spree::BillingIntegration::SisowBilling.stub(:new).and_return(billing_integration)
+    allow(Spree::Order).to receive(:find_by_number!).with("O12345678").and_return(order)
+    allow(Spree::BillingIntegration::SisowBilling).to receive(:new).and_return(billing_integration)
 
     spree_post :update, params
   end
 
   context "confirming a none-existing order" do
     before do
-      Spree::Order.stub(:find_by_number!).with("O12345678").and_raise(ActiveRecord::RecordNotFound)
+      allow(Spree::Order).to receive(:find_by_number!).with("O12345678").and_raise(ActiveRecord::RecordNotFound)
     end
 
     it "should log an error" do
       # Somehow in our spree, Logger is not defined on Rails but on ActionController.
-      ActionController::Base.logger.should_receive(:error).with(/ERROR:.*\(O12345678\) not found/)
+      expect(ActionController::Base.logger).to receive(:error).with(/ERROR:.*\(O12345678\) not found/)
       spree_post :update, params
     end
 
     it "should return HTTP status code 500" do
       spree_post :update, params
-      response.status.should eq 500
+      expect(response.status).to eq 500
     end
   end
 end

@@ -22,10 +22,10 @@ describe Spree::BillingIntegration::SisowBilling::Bancontact, type: :model do
 
     allow(Spree::Store).to receive(:current).and_return double(Spree::Store, name: "Spree Demo Site")
     stub_request(:get, "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/TransactionRequest?amount=300&callbackurl=&cancelurl=http://www.example.com&description=Spree%20Demo%20Site%20-%20Order:%20O12345678&entrancecode=R12345678&issuerid=99&merchantid=2537407799&notifyurl=http://www.example.com&payment=mistercash&purchaseid=O12345678&returnurl=http://www.example.com&sha1=876b2c3c20b56f34cad4a9108bd42dd16885baeb&shop_id=&test=true").to_return(sisow_redirect_url)
-    payment.stub(:identifier) { "R12345678" }
-    order.stub(:total) { 3 }
-    order.stub(:number) { "O12345678" }
-    order.stub_chain(:payments, :create).and_return(payment)
+    allow(payment).to receive(:identifier) { "R12345678" }
+    allow(order).to receive(:total) { 3 }
+    allow(order).to receive(:number) { "O12345678" }
+    allow(order).to receive_message_chain(:payments, :create).and_return(payment)
 
     #payment.should_receive(:started_processing!)
     #payment.should_receive(:pend!)
@@ -42,12 +42,12 @@ describe Spree::BillingIntegration::SisowBilling::Bancontact, type: :model do
   end
 
   it "should respond with true when the transaction was successfull" do
-    sisow_transaction.stub_chain(:status, :downcase).and_return('success')
+    allow(sisow_transaction).to receive_message_chain(:status, :downcase).and_return('success')
     expect(subject.purchase('123', sisow_transaction, {}).success?).to be true
   end
 
   it "should respond with false when the transaction was unsuccessfull" do
-    sisow_transaction.stub_chain(:status, :downcase).and_return('expired')
+    allow(sisow_transaction).to receive_message_chain(:status, :downcase).and_return('expired')
     expect(subject.purchase('123', sisow_transaction, {}).success?).to be false
   end
 end

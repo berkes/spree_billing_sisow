@@ -34,33 +34,33 @@ describe Spree::BillingIntegration::SisowBilling, type: :model do
   end
 
   it "should process a succes response correctly" do
-    Sisow::Api::Callback.stub(:new).and_return(sisow_api_callback)
-    Spree::SisowTransaction.stub_chain(:where, :first).and_return(sisow_transaction)
+    allow(Sisow::Api::Callback).to receive(:new).and_return(sisow_api_callback)
+    allow(Spree::SisowTransaction).to receive_message_chain(:where, :first).and_return(sisow_transaction)
 
     #Stub Sisow API Callback methods
-    sisow_api_callback.stub(:status).and_return("Success")
-    sisow_api_callback.stub(:sha1).and_return("1234567890")
-    sisow_api_callback.stub(:valid?).and_return(true)
-    sisow_api_callback.stub(:success?).and_return(true)
-    sisow_api_callback.stub(:cancelled?).and_return(false)
+    allow(sisow_api_callback).to receive(:status).and_return("Success")
+    allow(sisow_api_callback).to receive(:sha1).and_return("1234567890")
+    allow(sisow_api_callback).to receive(:valid?).and_return(true)
+    allow(sisow_api_callback).to receive(:success?).and_return(true)
+    allow(sisow_api_callback).to receive(:cancelled?).and_return(false)
 
     #Stub Order methods
-    order.stub_chain(:payments, :where, :present?).and_return(true)
-    order.stub_chain(:payments, :where, :first).and_return(payment)
-    order.stub(:completed?).and_return(true)
+    allow(order).to receive_message_chain(:payments, :where, :present?).and_return(true)
+    allow(order).to receive_message_chain(:payments, :where, :first).and_return(payment)
+    allow(order).to receive(:completed?).and_return(true)
 
     #Stub SisowTransaction methods
-    sisow_transaction.stub(:transaction_type).and_return('ideal')
+    allow(sisow_transaction).to receive(:transaction_type).and_return('ideal')
 
     #Stub Payment methods
-    payment.stub(:completed?).and_return(true)
+    allow(payment).to receive(:completed?).and_return(true)
 
     #We should receive the following method calls
     #payment.should_receive(:started_processing!)
     #payment.should_receive(:complete!)
     #order.should_receive(:update_attributes)
     #order.should_receive(:finalize!)
-    sisow_transaction.should_receive(:update_attributes).with({:status=>"Success", :sha1=>"1234567890"})
+    expect(sisow_transaction).to receive(:update_attributes).with({:status=>"Success", :sha1=>"1234567890"})
 
     expect {
       subject.process_response({})
@@ -69,32 +69,32 @@ describe Spree::BillingIntegration::SisowBilling, type: :model do
   end
 
   it "should process a cancel response correctly" do
-    Sisow::Api::Callback.stub(:new).and_return(sisow_api_callback)
-    Spree::SisowTransaction.stub_chain(:where, :first).and_return(sisow_transaction)
+    allow(Sisow::Api::Callback).to receive(:new).and_return(sisow_api_callback)
+    allow(Spree::SisowTransaction).to receive_message_chain(:where, :first).and_return(sisow_transaction)
 
     #Stub Sisow API Callback methods
-    sisow_api_callback.stub(:status).and_return("Cancel")
-    sisow_api_callback.stub(:sha1).and_return("1234567890")
-    sisow_api_callback.stub(:valid?).and_return(true)
-    sisow_api_callback.stub(:success?).and_return(false)
-    sisow_api_callback.stub(:failure?).and_return(false)
-    sisow_api_callback.stub(:expired?).and_return(false)
-    sisow_api_callback.stub(:cancelled?).and_return(true)
+    allow(sisow_api_callback).to receive(:status).and_return("Cancel")
+    allow(sisow_api_callback).to receive(:sha1).and_return("1234567890")
+    allow(sisow_api_callback).to receive(:valid?).and_return(true)
+    allow(sisow_api_callback).to receive(:success?).and_return(false)
+    allow(sisow_api_callback).to receive(:failure?).and_return(false)
+    allow(sisow_api_callback).to receive(:expired?).and_return(false)
+    allow(sisow_api_callback).to receive(:cancelled?).and_return(true)
 
     #Stub Order methods
-    order.stub_chain(:payments, :where, :present?).and_return(true)
-    order.stub_chain(:payments, :where, :first).and_return(payment)
+    allow(order).to receive_message_chain(:payments, :where, :present?).and_return(true)
+    allow(order).to receive_message_chain(:payments, :where, :first).and_return(payment)
 
     #Stub SisowTransaction methods
-    sisow_transaction.stub(:transaction_type).and_return('ideal')
+    allow(sisow_transaction).to receive(:transaction_type).and_return('ideal')
 
     #Stub Payment methods
-    payment.stub(:void?).and_return(false)
+    allow(payment).to receive(:void?).and_return(false)
 
     #We should receive the following method calls
     #payment.should_receive(:started_processing!)
-    payment.should_receive(:void!)
-    sisow_transaction.should_receive(:update_attributes).with({:status=>"Cancel", :sha1=>"1234567890"})
+    expect(payment).to receive(:void!)
+    expect(sisow_transaction).to receive(:update_attributes).with({:status=>"Cancel", :sha1=>"1234567890"})
 
     expect {
       subject.process_response({})
