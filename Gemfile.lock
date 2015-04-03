@@ -175,7 +175,7 @@ GEM
     rabl (0.9.4.pre1)
       activesupport (>= 2.3.14)
     rack (1.5.2)
-    rack-test (0.6.2)
+    rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.1.8)
       actionmailer (= 4.1.8)
@@ -320,7 +320,7 @@ DEPENDENCIES
   factory_girl (~> 4.2)
   ffaker
   rspec-activemodel-mocks (~> 1.0)
-  rspec-rails (~> 3.0)
+  rspec-rails (~> 3.2)
   sass-rails
   selenium-webdriver
   simplecov
