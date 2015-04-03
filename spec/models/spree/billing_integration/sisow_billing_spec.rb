@@ -12,15 +12,15 @@ describe Spree::BillingIntegration::SisowBilling do
 
   context "when payment is not initialized" do
     it "should respond to .success? with false" do
-      expect(subject.success?).to be_false
+      expect(subject.success?).to be false
     end
 
     it "should respond to .failed? with false" do
-      expect(subject.failed?).to be_true
+      expect(subject.failed?).to be true
     end
 
     it "should respond to .cancelled? with false" do
-      expect(subject.cancelled?).to be_false
+      expect(subject.cancelled?).to be false
     end
   end
 
@@ -65,7 +65,7 @@ describe Spree::BillingIntegration::SisowBilling do
     expect {
       subject.process_response({})
     }.to_not raise_error
-    expect(subject.success?).to be_true
+    expect(subject.success?).to be true
   end
 
   it "should process a cancel response correctly" do
@@ -101,6 +101,6 @@ describe Spree::BillingIntegration::SisowBilling do
     }.to_not raise_error
     
     #Cannot check this because we stub payment.void?
-    #expect(subject.cancelled?).to be_true
+    #expect(subject.cancelled?).to be true
   end
 end

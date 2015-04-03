@@ -21,7 +21,7 @@ describe Spree::CheckoutController do
   #  sisow_billing.should_receive(:succes?).and_return(true)
   #  spree_post :sisow_return
   #
-  #  expect(flash[:notice]).to be_false
+  #  expect(flash[:notice]).to be false
   #end
   #
   #it "should handle the sisow cancel response and set the flash to payment_has_been_cancelled" do
@@ -32,7 +32,7 @@ describe Spree::CheckoutController do
   #  billing_integration.should_receive(:new)
   #  billing_integration.should_receive(:failed?).and_return(true)
   #  spree_post :sisow_return
-  #  expect(flash[:notice]).to be_false
+  #  expect(flash[:notice]).to be false
   #end
 
 end
