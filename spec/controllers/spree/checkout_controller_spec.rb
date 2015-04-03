@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::CheckoutController do
+describe Spree::CheckoutController, type: :controller do
   let(:token) { 'some_token' }
   let(:user) { stub_model(Spree::LegacyUser) }
   let(:order) { FactoryGirl.create(:order_with_totals) }

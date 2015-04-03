@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::BillingIntegration::SisowBilling do
+describe Spree::BillingIntegration::SisowBilling, type: :model do
   let(:order) {
     order = Spree::Order.new(:bill_address => Spree::Address.new,
                      :ship_address => Spree::Address.new)

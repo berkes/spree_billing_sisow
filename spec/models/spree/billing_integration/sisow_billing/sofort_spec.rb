@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::BillingIntegration::SisowBilling::Sofort do
+describe Spree::BillingIntegration::SisowBilling::Sofort, type: :model do
   let(:subject) { Spree::BillingIntegration::SisowBilling::Sofort.new }
   let(:order) { double("Spree::Order") }
   let(:sisow_transaction) { double("Spree::SisowTransaction") }

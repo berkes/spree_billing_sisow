@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::SisowStatusController do
+describe Spree::SisowStatusController, type: :controller do
   let(:order) {
     Spree::Order.new(:bill_address => Spree::Address.new,
                      :ship_address => Spree::Address.new)
@@ -32,7 +32,7 @@ describe Spree::SisowStatusController do
     spree_post :update, params
   end
 
-  describe "confirming a none-existing order" do
+  context "confirming a none-existing order" do
     before do
       Spree::Order.stub(:find_by_number!).with("O12345678").and_raise(ActiveRecord::RecordNotFound)
     end
