@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Spree::BillingIntegration::SisowBilling::Ideal, type: :model do
-  let(:subject) { Spree::BillingIntegration::SisowBilling::Ideal.new }
+describe Spree::PaymentMethod::SisowBilling::Ideal, type: :model do
+  let(:subject) { Spree::PaymentMethod::SisowBilling::Ideal.new }
   let(:order) { double("Spree::Order") }
   let(:sisow_transaction) { double("Spree::SisowTransaction") }
   let(:payment){ double("Spree::Payment") }
@@ -23,7 +23,7 @@ describe Spree::BillingIntegration::SisowBilling::Ideal, type: :model do
     expect do
       stub_request(:get, "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/DirectoryRequest?merchantid=2537407799&test=true").to_return(issuer_list_response)
     end.not_to raise_error
-    expect(Spree::BillingIntegration::SisowBilling::Ideal.issuer_list.length).to be >= 1
+    expect(Spree::PaymentMethod::SisowBilling::Ideal.issuer_list.length).to be >= 1
   end
 
   it "should return a payment URL to the Sisow API" do

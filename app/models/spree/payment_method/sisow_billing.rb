@@ -1,9 +1,9 @@
 module Spree
-  class BillingIntegration::SisowBilling < BillingIntegration
+  class PaymentMethod::SisowBilling < PaymentMethod
 
     def initialize(order)
       @order = order
-      BillingIntegration::SisowBilling.configure
+      PaymentMethod::SisowBilling.configure
     end
 
     def success?
@@ -89,11 +89,11 @@ module Spree
     def payment_method
       case @sisow_transaction.transaction_type
         when 'ideal'
-          return PaymentMethod.where(type: "Spree::BillingIntegration::SisowBilling::Ideal").first
+          return PaymentMethod.where(type: "Spree::PaymentMethod::SisowBilling::Ideal").first
         when 'bancontact'
-          return PaymentMethod.where(type: "Spree::BillingIntegration::SisowBilling::Bancontact").first
+          return PaymentMethod.where(type: "Spree::PaymentMethod::SisowBilling::Bancontact").first
         when 'sofort'
-          return PaymentMethod.where(type: "Spree::BillingIntegration::SisowBilling::Sofort").first
+          return PaymentMethod.where(type: "Spree::PaymentMethod::SisowBilling::Sofort").first
         else
           raise "Unknown payment method (#{@sisow_transaction.transaction_type})"
       end

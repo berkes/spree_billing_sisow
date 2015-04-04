@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Spree::BillingIntegration::SisowBilling::Bancontact, type: :model do
-  let(:subject) { Spree::BillingIntegration::SisowBilling::Bancontact.new }
+describe Spree::PaymentMethod::SisowBilling::Bancontact, type: :model do
+  let(:subject) { Spree::PaymentMethod::SisowBilling::Bancontact.new }
   let(:order) { double("Spree::Order") }
   let(:sisow_transaction) { double("Spree::SisowTransaction") }
   let(:payment){ double("Spree::Payment") }

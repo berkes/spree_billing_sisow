@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::BillingIntegration::SisowBilling, type: :model do
+describe Spree::PaymentMethod::SisowBilling, type: :model do
   let(:order) {
     order = Spree::Order.new(:bill_address => Spree::Address.new,
                      :ship_address => Spree::Address.new)
@@ -8,7 +8,7 @@ describe Spree::BillingIntegration::SisowBilling, type: :model do
   let(:sisow_api_callback) { double(Sisow::Api::Callback)}
   let(:sisow_transaction) { mock_model(Spree::SisowTransaction)}
   let(:payment) { mock_model(Spree::Payment) }
-  let(:subject) { Spree::BillingIntegration::SisowBilling.new(order) }
+  let(:subject) { Spree::PaymentMethod::SisowBilling.new(order) }
 
   context "when payment is not initialized" do
     it "should respond to .success? with false" do

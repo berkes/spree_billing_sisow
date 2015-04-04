@@ -6,9 +6,7 @@ describe Spree::SisowStatusController, type: :controller do
                      :ship_address => Spree::Address.new)
   }
 
-  let(:billing_integration) {
-    double(Spree::BillingIntegration::SisowBilling)
-  }
+  let(:payment_method) { double(Spree::PaymentMethod::SisowBilling) }
 
   let(:params) do
     {
@@ -24,10 +22,10 @@ describe Spree::SisowStatusController, type: :controller do
     test_params = params.clone
     test_params.delete(:use_route)
     test_params.merge!({"controller" => "spree/sisow_status", "action"=>"update"})
-    expect(billing_integration).to receive(:process_response).with(test_params)
+    expect(payment_method).to receive(:process_response).with(test_params)
 
     allow(Spree::Order).to receive(:find_by_number!).with("O12345678").and_return(order)
-    allow(Spree::BillingIntegration::SisowBilling).to receive(:new).and_return(billing_integration)
+    allow(Spree::PaymentMethod::SisowBilling).to receive(:new).and_return(payment_method)
 
     spree_post :update, params
   end

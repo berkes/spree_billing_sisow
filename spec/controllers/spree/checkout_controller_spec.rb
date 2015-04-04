@@ -4,18 +4,16 @@ describe Spree::CheckoutController, type: :controller do
   let(:token) { 'some_token' }
   let(:user) { stub_model(Spree::LegacyUser) }
   let(:order) { FactoryGirl.create(:order_with_totals) }
-  let(:billing_integration) {
-    double(Spree::BillingIntegration::SisowBilling)
-  }
+  let(:payment_method) { double(Spree::PaymentMethod::SisowBilling) }
 
   before do
     controller.stub :try_spree_current_user => user
     controller.stub :current_order => order
-    controller.stub :handle_sisow_response => billing_integration
+    controller.stub :handle_sisow_response => payment_method
   end
 
   #it "should handle the sisow success response and set the flash to thank_you_for_your_order" do
-  #  Spree::BillingIntegration::SisowBilling.stub(:new).and_return(sisow_billing)
+  #  Spree::PaymentMethod::SisowBilling.stub(:new).and_return(sisow_billing)
   #  sisow_billing.stub(:process_response)
   #  sisow_billing.stub(:failed?).and_return(false)
   #  sisow_billing.should_receive(:succes?).and_return(true)

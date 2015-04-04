@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Spree::BillingIntegration::SisowBilling::Sofort, type: :model do
-  let(:subject) { Spree::BillingIntegration::SisowBilling::Sofort.new }
+describe Spree::PaymentMethod::SisowBilling::Sofort, type: :model do
+  let(:subject) { Spree::PaymentMethod::SisowBilling::Sofort.new }
   let(:order) { double("Spree::Order") }
   let(:sisow_transaction) { double("Spree::SisowTransaction") }
   let(:payment){ double("Spree::Payment") }
@@ -41,12 +41,12 @@ describe Spree::BillingIntegration::SisowBilling::Sofort, type: :model do
   end
 
   it "should respond with true when the transaction was successfull" do
-    sisow_transaction.stub_chain(:status, :downcase).and_return('success')
+    allow(sisow_transaction).to receive_message_chain(:status, :downcase).and_return('success')
     expect(subject.purchase('123', sisow_transaction, {}).success?).to be true
   end
 
   it "should respond with false when the transaction was unsuccessfull" do
-    sisow_transaction.stub_chain(:status, :downcase).and_return('expired')
+    allow(sisow_transaction).to receive_message_chain(:status, :downcase).and_return('expired')
     expect(subject.purchase('123', sisow_transaction, {}).success?).to be false
   end
 end
