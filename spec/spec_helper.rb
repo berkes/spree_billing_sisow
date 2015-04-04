@@ -30,6 +30,7 @@ require 'spree/testing_support/factories'
 require 'spree/testing_support/controller_requests'
 require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/url_helpers'
+require 'spree/testing_support/order_walkthrough'
 
 # Requires factories defined in lib/spree_billing_sisow/factories.rb
 require 'spree_billing_sisow/factories'
