@@ -75,6 +75,10 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
     builder (3.2.2)
+    byebug (3.5.1)
+      columnize (~> 0.8)
+      debugger-linecache (~> 1.2)
+      slop (~> 3.6)
     camertron-eprun (1.1.0)
     cancancan (1.10.1)
     canonical-rails (0.0.9)
@@ -87,8 +91,6 @@ GEM
       xpath (~> 2.0)
     carmen (1.0.2)
       activesupport (>= 3.0.0)
-    childprocess (0.5.5)
-      ffi (~> 1.0, >= 1.0.11)
     cldr-plurals-runtime-rb (1.0.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -102,11 +104,13 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     colorize (0.7.5)
+    columnize (0.9.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     css_parser (1.3.6)
       addressable
     database_cleaner (1.3.0)
+    debugger-linecache (1.2.0)
     deface (1.0.1)
       colorize (>= 0.5.8)
       nokogiri (~> 1.6.0)
@@ -128,7 +132,6 @@ GEM
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     ffaker (1.32.1)
-    ffi (1.9.6)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
     friendly_id (5.1.0)
@@ -153,6 +156,8 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     libv8 (3.16.14.7)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
@@ -222,6 +227,7 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.1)
+    rb-readline (0.5.2)
     ref (1.0.5)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
@@ -246,7 +252,6 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
-    rubyzip (1.1.6)
     safe_yaml (1.0.4)
     sass (3.4.13)
     sass-rails (5.0.3)
@@ -255,11 +260,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
-    selenium-webdriver (2.43.0)
-      childprocess (~> 0.5)
-      multi_json (~> 1.0)
-      rubyzip (~> 1.0)
-      websocket (~> 1.0)
     simplecov (0.9.1)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
@@ -269,6 +269,7 @@ GEM
       crack
       hashie
       httpi
+    slop (3.6.0)
     spree_api (3.0.0)
       rabl (~> 0.9.4.pre1)
       spree_core (= 3.0.0)
@@ -347,7 +348,6 @@ GEM
     webmock (1.20.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
-    websocket (1.2.1)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -355,15 +355,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  byebug
   capybara (~> 2.1)
   coffee-rails
   database_cleaner
   factory_girl (~> 4.2)
   ffaker
+  launchy
+  rb-readline
   rspec-activemodel-mocks (~> 1.0)
   rspec-rails (~> 3.2)
   sass-rails
-  selenium-webdriver
   simplecov
   spree_auth_devise!
   spree_billing_sisow!
