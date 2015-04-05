@@ -4,7 +4,7 @@ module Spree
 
     def sisow_return
       handle_sisow_response
-      @order.next
+      @order.reload.next
       if @order.complete?
         flash.notice = Spree.t(:order_processed_successfully)
         redirect_to order_path(@order, :token => @order.token)
