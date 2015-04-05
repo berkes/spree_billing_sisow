@@ -20,7 +20,7 @@ module Spree
           def success?; false; end
           def authorization; nil; end
           def to_s
-            "Payment failed with status: #{source.status}"
+            "Payment failed"
           end
         end.new
       end
