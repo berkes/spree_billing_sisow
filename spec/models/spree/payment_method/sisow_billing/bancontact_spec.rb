@@ -4,16 +4,16 @@ describe Spree::PaymentMethod::SisowBilling::Bancontact, type: :model do
   let(:subject) { Spree::PaymentMethod::SisowBilling::Bancontact.new }
   let(:order) { double("Spree::Order") }
   let(:sisow_transaction) { double("Spree::SisowTransaction") }
-  let(:payment){ double("Spree::Payment") }
+  let(:payment) { double("Spree::Payment") }
 
-  let(:options) {
+  let(:options) do
     {
         return_url: 'http://www.example.com',
         cancel_url: 'http://www.example.com',
         notify_url: 'http://www.example.com',
         issuer_id: 99
     }
-  }
+  end
 
   #Webmock request file
   let(:sisow_redirect_url) { File.new("spec/webmock_files/bancontact_redirect_url_output") }
