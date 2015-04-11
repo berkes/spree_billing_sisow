@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.description = 'Spree billing integration for Sisow iDeal /Bancontact / Sofort payments'
   s.required_ruby_version = '>= 1.9.3'
 
-  s.author    = 'Sjors Baltus'
-  s.email     = 'spree_gems@sjorsbaltus.nl'
-  s.homepage  = 'http://github.com/xtr3me/spree_billing_sisow'
+  s.authors   = ['Sjors Baltus', 'Bèr Kessels']
+  s.email     = ['gems@berk.es']
+  s.homepage  = 'http://github.com/berkes/spree_billing_sisow'
 
   #s.files       = `git ls-files`.split("\n")
   #s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
