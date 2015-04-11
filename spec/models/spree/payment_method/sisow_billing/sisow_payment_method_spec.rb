@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Spree::PaymentMethod::SisowBilling::SisowPaymentMethod, type: :model do
   it "should respond with false when calling payment_profiles_supported?" do
