@@ -19,6 +19,7 @@ module Spree
     end
 
     private
+
     def handle_sisow_response
       sisow = PaymentMethod::SisowBilling.new(@order)
       sisow.process_response(params)
@@ -31,21 +32,27 @@ module Spree
     def confirm_sisow
       return unless (params[:state] == "payment") && params[:order][:payments_attributes]
 
-      payment_method = PaymentMethod.find(params[:order][:payments_attributes].first[:payment_method_id])
-      opts[:return_url] = sisow_return_order_checkout_url(@order)
-      opts[:cancel_url] = sisow_cancel_order_checkout_url(@order)
-      opts[:notify_url] = sisow_status_update_url(@order)
-      opts[:callback_url] = sisow_status_update_url(@order)
+      payment_method = PaymentMethod.find(payment_method_id_param)
 
+      opts = return_url_opts
       if payment_method.is_a?(PaymentMethod::SisowBilling::Ideal)
         opts[:issuer_id] = params[:issuer_id]
-        redirect_to payment_method.redirect_url(@order, opts)
-      elsif payment_method.is_a?(PaymentMethod::SisowBilling::Sofort)
-        redirect_to payment_method.redirect_url(@order, opts)
-      elsif payment_method.is_a?(PaymentMethod::SisowBilling::Bancontact)
-        redirect_to payment_method.redirect_url(@order, opts)
       end
+
+      redirect_to payment_method.redirect_url(@order, opts)
     end
 
+    def return_url_opts
+      {
+        return_url: sisow_return_order_checkout_url(@order),
+        cancel_url: sisow_cancel_order_checkout_url(@order),
+        notify_url: sisow_status_update_url(@order),
+        callback_url: sisow_status_update_url(@order),
+      }
+    end
+
+    def payment_method_id_param
+      params[:order][:payments_attributes].first[:payment_method_id]
+    end
   end
 end
