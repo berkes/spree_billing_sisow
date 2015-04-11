@@ -41,8 +41,9 @@ module Spree
     def start_transaction(transaction_type, opts = {})
       @sisow_transaction = SisowTransaction.create(transaction_type: transaction_type, status: 'pending')
 
-      @payment = @order.payments.create(amount: @order.total,   									    										source: @sisow_transaction,
-      									payment_method: payment_method)
+      @payment = @order.payments.create(amount: @order.total,
+                                        source: @sisow_transaction,
+                                        payment_method: payment_method)
 
       # Update the entrance code with the payment number
       @sisow_transaction.update(entrance_code: @payment.number)
