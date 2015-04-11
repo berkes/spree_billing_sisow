@@ -58,7 +58,9 @@ module Spree
       sisow = payment_provider(transaction_type, opts)
 
       # Update the transaction id and entrance code on the sisow transaction
-      @sisow_transaction.update_attributes(transaction_id: sisow.transaction_id, entrance_code: @payment.number)
+      @sisow_transaction.update_attributes(
+        transaction_id: sisow.transaction_id,
+        entrance_code: @payment.number)
 
       sisow.payment_url
     end
@@ -74,6 +76,7 @@ module Spree
     end
 
     private
+
     def payment_provider(transaction_type, options)
       case transaction_type
         when 'ideal'
