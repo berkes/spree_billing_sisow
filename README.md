@@ -8,12 +8,6 @@ Spree Billing Sisow
 Spree Billing Integration for Sisow (Ideal / Bancontact / Sofort) payments.
 This Gem is currently being build and tested, and is not yet released for use in production systems
 
-Todo
-------------
-- [ ] Add error logging
-- [ ] Write Rspecs for some rainy day scenarios
-- [ ] Release Gem
-
 Installation
 ------------
 
