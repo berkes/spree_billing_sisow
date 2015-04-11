@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Spree::PaymentMethod::SisowBilling::SisowPaymentMethod, type: :model do
-  let(:sisow_transaction) { double("Spree::SisowTransaction") }
-
   it "should respond with false when calling payment_profiles_supported?" do
     expect(subject.payment_profiles_supported?).to be false
   end
@@ -11,13 +9,11 @@ describe Spree::PaymentMethod::SisowBilling::SisowPaymentMethod, type: :model do
     expect(subject.auto_capture?).to be true
   end
 
-  it "should respond with true when the transaction was successfull" do
-    allow(sisow_transaction).to receive_message_chain(:status, :downcase).and_return('success')
-    expect(subject.purchase('123', sisow_transaction, {}).success?).to be true
-  end
-
-  it "should respond with false when the transaction was unsuccessfull" do
-    allow(sisow_transaction).to receive_message_chain(:status, :downcase).and_return('expired')
-    expect(subject.purchase('123', sisow_transaction, {}).success?).to be false
+  describe "#purchase" do
+    it "should initiate a new Purchase with source" do
+      sisow_transaction = double("Spree::SisowTransaction", status: "Success")
+      purchase_class = Spree::PaymentMethod::SisowBilling::Purchase
+      expect(subject.purchase(0, sisow_transaction, {})).to be_a purchase_class
+    end
   end
 end
