@@ -24,6 +24,15 @@ bundle
 bundle exec rails g spree_billing_sisow:install
 ```
 
+Author
+------
+
+Developed by [xtr3me](https://github.com/xtr3me)
+
+[Other contributors](https://github.com/xtr3me/spree_billing_sisow/graphs/contributors)
+
+Currently maintained by [Bèr `berkes` Kessels](http://berk.es)
+
 Testing
 -------
 
