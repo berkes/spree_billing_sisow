@@ -1,5 +1,5 @@
 module Spree
-  class BillingIntegration::SisowBilling::Sofort < BillingIntegration
+  class PaymentMethod::SisowBilling::Bancontact < PaymentMethod
     def payment_profiles_supported?
       false
     end
@@ -26,8 +26,8 @@ module Spree
     end
 
     def redirect_url(order, opts = {})
-      sisow = BillingIntegration::SisowBilling.new(order)
-      sisow.start_transaction('sofort', opts)
+      sisow = PaymentMethod::SisowBilling.new(order)
+      sisow.start_transaction('bancontact', opts)
     end
   end
 end

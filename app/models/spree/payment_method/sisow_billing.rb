@@ -1,9 +1,9 @@
 module Spree
-  class BillingIntegration::SisowBilling < BillingIntegration
+  class PaymentMethod::SisowBilling < PaymentMethod
 
     def initialize(order)
       @order = order
-      BillingIntegration::SisowBilling.configure
+      PaymentMethod::SisowBilling.configure
     end
 
     def success?
@@ -44,20 +44,20 @@ module Spree
       @payment = @order.payments.create(amount: @order.total,   									    										source: @sisow_transaction,
       									payment_method: payment_method)
 
-      #Update the entrance code with the payment identifier
-      @sisow_transaction.update(entrance_code: @payment.identifier)
+      # Update the entrance code with the payment number
+      @sisow_transaction.update(entrance_code: @payment.number)
 
       #Set the options needed for the Sisow payment url
       opts[:description] = "#{Spree::Store.current.name} - Order: #{@order.number}"
       opts[:purchase_id] = @order.number
       opts[:amount] = (@order.total * 100).to_i
-      opts[:entrance_code] = @payment.identifier
+      opts[:entrance_code] = @payment.number
 
       #Initialize the provider
       sisow = payment_provider(transaction_type, opts)
 
-      #Update the transaction id and entrance code on the sisow transaction
-      @sisow_transaction.update_attributes(transaction_id: sisow.transaction_id, entrance_code: @payment.identifier)
+      # Update the transaction id and entrance code on the sisow transaction
+      @sisow_transaction.update_attributes(transaction_id: sisow.transaction_id, entrance_code: @payment.number)
 
       sisow.payment_url
     end
@@ -89,11 +89,11 @@ module Spree
     def payment_method
       case @sisow_transaction.transaction_type
         when 'ideal'
-          return PaymentMethod.where(type: "Spree::BillingIntegration::SisowBilling::Ideal").first
+          return PaymentMethod.where(type: "Spree::PaymentMethod::SisowBilling::Ideal").first
         when 'bancontact'
-          return PaymentMethod.where(type: "Spree::BillingIntegration::SisowBilling::Bancontact").first
+          return PaymentMethod.where(type: "Spree::PaymentMethod::SisowBilling::Bancontact").first
         when 'sofort'
-          return PaymentMethod.where(type: "Spree::BillingIntegration::SisowBilling::Sofort").first
+          return PaymentMethod.where(type: "Spree::PaymentMethod::SisowBilling::Sofort").first
         else
           raise "Unknown payment method (#{@sisow_transaction.transaction_type})"
       end
