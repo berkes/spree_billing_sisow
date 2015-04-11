@@ -5,8 +5,10 @@ feature 'Administer' do
     stub_authorization!
 
     scenario 'I want to browse to the sisow settings page' do
+      # Reload Deface, for some reason it won't register our overrides otherwise.
+      Rails.application.config.deface.overrides.load_all Rails.application
       visit spree.admin_path
-      click_link 'Sisow settings'
+      click_link 'Sisow configuration'
       expect(page.find('h1')).to have_content 'Sisow configuration'
     end
 
