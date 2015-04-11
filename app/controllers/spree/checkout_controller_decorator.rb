@@ -4,10 +4,10 @@ module Spree
 
     def sisow_return
       handle_sisow_response
-      @order.next
+      @order.reload.next
       if @order.complete?
         flash.notice = Spree.t(:order_processed_successfully)
-        redirect_to order_path(@order, :token => @order.token)
+        redirect_to order_path(@order, :number => @order.number)
       else
         redirect_to checkout_state_path(@order.state)
       end
@@ -20,7 +20,7 @@ module Spree
 
     private
     def handle_sisow_response
-      sisow = BillingIntegration::SisowBilling.new(@order)
+      sisow = PaymentMethod::SisowBilling.new(@order)
       sisow.process_response(params)
 
       if sisow.cancelled?
@@ -38,12 +38,12 @@ module Spree
       opts[:notify_url] = sisow_status_update_url(@order)
       opts[:callback_url] = sisow_status_update_url(@order)
 
-      if payment_method.kind_of?(BillingIntegration::SisowBilling::Ideal)
+      if payment_method.kind_of?(PaymentMethod::SisowBilling::Ideal)
         opts[:issuer_id] = params[:issuer_id]
         redirect_to payment_method.redirect_url(@order, opts)
-      elsif payment_method.kind_of?(BillingIntegration::SisowBilling::Sofort)
+      elsif payment_method.kind_of?(PaymentMethod::SisowBilling::Sofort)
         redirect_to payment_method.redirect_url(@order, opts)
-      elsif payment_method.kind_of?(BillingIntegration::SisowBilling::Bancontact)
+      elsif payment_method.kind_of?(PaymentMethod::SisowBilling::Bancontact)
         redirect_to payment_method.redirect_url(@order, opts)
       end
     end

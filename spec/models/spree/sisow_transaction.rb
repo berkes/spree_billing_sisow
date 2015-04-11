@@ -1,7 +1,4 @@
 require 'spec_helper'
 
-module Spree
-  describe SisowTransaction do
-
-  end
+describe Spree::SisowTransaction, type: :model do
 end

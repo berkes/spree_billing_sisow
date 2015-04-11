@@ -1,18 +1,12 @@
 Spree Billing Sisow
 =================
-[![Build Status](https://travis-ci.org/xtr3me/spree_billing_sisow.png)](https://travis-ci.org/xtr3me/spree_billing_sisow)
-[![Code Climate](https://codeclimate.com/github/xtr3me/spree_billing_sisow.png)](https://codeclimate.com/github/xtr3me/spree_billing_sisow)
-[![Coverage Status](https://coveralls.io/repos/xtr3me/spree_billing_sisow/badge.png)](https://coveralls.io/r/xtr3me/spree_billing_sisow)
-[![Dependency Status](https://gemnasium.com/xtr3me/spree_billing_sisow.png)](https://gemnasium.com/xtr3me/spree_billing_sisow)
+[![Build Status](https://travis-ci.org/berkes/spree_billing_sisow.png)](https://travis-ci.org/xtr3me/spree_billing_sisow)
+[![Code Climate](https://codeclimate.com/github/berkes/spree_billing_sisow.png)](https://codeclimate.com/github/xtr3me/spree_billing_sisow)
+[![Test Coverage](https://codeclimate.com/github/berkes/spree_billing_sisow/badges/coverage.svg)](https://codeclimate.com/github/berkes/spree_billing_sisow)
+[![Dependency Status](https://gemnasium.com/berkes/spree_billing_sisow.svg)](https://gemnasium.com/xtr3me/spree_billing_sisow)
 
 Spree Billing Integration for Sisow (Ideal / Bancontact / Sofort) payments.
 This Gem is currently being build and tested, and is not yet released for use in production systems
-
-Todo
-------------
-- [ ] Add error logging
-- [ ] Write Rspecs for some rainy day scenarios
-- [ ] Release Gem
 
 Installation
 ------------
@@ -29,6 +23,15 @@ Bundle your dependencies and run the installation generator:
 bundle
 bundle exec rails g spree_billing_sisow:install
 ```
+
+Author
+------
+
+Developed by [xtr3me](https://github.com/xtr3me)
+
+[Other contributors](https://github.com/xtr3me/spree_billing_sisow/graphs/contributors)
+
+Currently maintained by [Bèr `berkes` Kessels](http://berk.es)
 
 Testing
 -------
