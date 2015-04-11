@@ -24,6 +24,7 @@ require 'spree/testing_support/controller_requests'
 require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/url_helpers'
 require 'spree/testing_support/order_walkthrough'
+require 'spree/testing_support/preferences'
 
 # Requires factories defined in lib/spree_billing_sisow/factories.rb
 require 'spree_billing_sisow/factories'
@@ -42,6 +43,9 @@ RSpec.configure do |config|
 
   config.include Spree::TestingSupport::ControllerRequests, :type => :controller
   config.include Devise::TestHelpers, :type => :controller
+
+  # Allow resetting of config.
+  config.include Spree::TestingSupport::Preferences
 
   # == Mock Framework
   #
@@ -71,6 +75,8 @@ RSpec.configure do |config|
   config.before :each do |example|
     DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
+
+    reset_spree_preferences
   end
 
   # After each spec clean the database.
