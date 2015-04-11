@@ -91,15 +91,13 @@ module Spree
     end
 
     def payment_method
-      case @sisow_transaction.transaction_type
-        when 'ideal'
-          return PaymentMethod.where(type: "Spree::PaymentMethod::SisowBilling::Ideal").first
-        when 'bancontact'
-          return PaymentMethod.where(type: "Spree::PaymentMethod::SisowBilling::Bancontact").first
-        when 'sofort'
-          return PaymentMethod.where(type: "Spree::PaymentMethod::SisowBilling::Sofort").first
-        else
-          raise "Unknown payment method (#{@sisow_transaction.transaction_type})"
+      type = @sisow_transaction.transaction_type
+      class_name = "Spree::PaymentMethod::SisowBilling::#{type.classify}"
+
+      if Object.const_defined?(class_name)
+        PaymentMethod.where(type: class_name).first
+      else
+        raise "Unknown payment method (#{type})"
       end
     end
 
