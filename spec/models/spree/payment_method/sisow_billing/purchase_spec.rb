@@ -7,13 +7,13 @@ describe Spree::PaymentMethod::SisowBilling::SisowPaymentMethod, type: :model do
   it { expect(subject.authorization).to be_nil }
 
   context "source status is Success" do
-    before { allow(source).to receive(:status).and_return('Success') }
+    before { allow(source).to receive(:status).and_return("Success") }
     it { expect(subject.success?).to be true }
     it { expect(subject.to_s).to match "Purchase" }
   end
 
   context "source status is expired" do
-    before { allow(source).to receive(:status).and_return('expired') }
+    before { allow(source).to receive(:status).and_return("expired") }
     it { expect(subject.success?).to be false }
     it { expect(subject.to_s).to eq "Payment failed" }
   end
