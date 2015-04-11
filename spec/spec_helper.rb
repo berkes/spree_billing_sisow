@@ -76,6 +76,8 @@ RSpec.configure do |config|
   config.before :suite do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
+
+    WebMock.disable_net_connect!(allow: "codeclimate.com")
   end
 
   # Before each spec check if it is a Javascript test and switch between using database transactions or not where necessary.
