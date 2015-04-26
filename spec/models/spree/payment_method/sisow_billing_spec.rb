@@ -99,7 +99,7 @@ describe Spree::PaymentMethod::SisowBilling, type: :model do
     expect {
       subject.process_response({})
     }.to_not raise_error
-    
+
     #Cannot check this because we stub payment.void?
     #expect(subject.cancelled?).to be true
   end
