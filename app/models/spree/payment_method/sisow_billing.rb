@@ -27,9 +27,14 @@ module Spree
 
         if @callback.valid?
           #Update the transaction with the callback details
-          @sisow_transaction.update_attributes(status: @callback.status, sha1: @callback.sha1)
+          @sisow_transaction.update_attributes(
+            status: @callback.status,
+            sha1: @callback.sha1)
 
-          @payment = @order.payments.where(amount: @order.total, source_id: @sisow_transaction, payment_method_id: payment_method).first
+          @payment = @order.payments.where(
+            amount: @order.total,
+            source_id: @sisow_transaction,
+            payment_method_id: payment_method).first
 
           if @callback.cancelled? && !@payment.void?
             cancel_payment
@@ -39,7 +44,9 @@ module Spree
     end
 
     def start_transaction(transaction_type, opts = {})
-      @sisow_transaction = SisowTransaction.create(transaction_type: transaction_type, status: 'pending')
+      @sisow_transaction = SisowTransaction.create(
+        transaction_type: transaction_type,
+        status: 'pending')
 
       @payment = @order.payments.create(amount: @order.total,
                                         source: @sisow_transaction,
@@ -109,7 +116,10 @@ module Spree
           :sha1 => sisow_return_data[:sha1]
       )
 
-      @sisow_transaction = SisowTransaction.where(transaction_id: sisow_return_data[:trxid], entrance_code: sisow_return_data[:ec]).first
+      @sisow_transaction = SisowTransaction.where(
+        transaction_id: sisow_return_data[:trxid],
+        entrance_code: sisow_return_data[:ec]
+      ).first
     end
 
     def cancel_payment
