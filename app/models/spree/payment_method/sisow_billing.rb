@@ -26,7 +26,7 @@ module Spree
         initialize_callback(response)
 
         if @callback.valid?
-          #Update the transaction with the callback details
+          # Update the transaction with the callback details
           @sisow_transaction.update_attributes(
             status: @callback.status,
             sha1: @callback.sha1)
@@ -55,13 +55,13 @@ module Spree
       # Update the entrance code with the payment number
       @sisow_transaction.update(entrance_code: @payment.number)
 
-      #Set the options needed for the Sisow payment url
+      # Set the options needed for the Sisow payment url
       opts[:description] = "#{Spree::Store.current.name} - Order: #{@order.number}"
       opts[:purchase_id] = @order.number
       opts[:amount] = (@order.total * 100).to_i
       opts[:entrance_code] = @payment.number
 
-      #Initialize the provider
+      # Initialize the provider
       sisow = payment_provider(transaction_type, opts)
 
       # Update the transaction id and entrance code on the sisow transaction
