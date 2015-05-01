@@ -33,6 +33,10 @@ describe Spree::PaymentMethod::SisowBilling::Paypalec do
   let(:sisow_redirect_url) { File.new("spec/webmock_files/paypal_redirect_url_output") }
 
   before do
+    allow(Spree::PaymentMethod).to receive(:find_by!).with(type: subject.class.to_s).and_return(subject)
+  end
+
+  before do
     allow(Spree::Store).to receive(:current).and_return double(Spree::Store, name: "Spree Demo Site")
     allow(Spree::Config).to receive(:sisow_merchant_id).and_return merchant_id
     allow(Spree::Config).to receive(:sisow_merchant_key).and_return merchant_key

@@ -15,9 +15,9 @@ shared_examples 'sisow payment' do |transaction_type, sisow_class, billing_class
   describe "creates a payment" do
     it "sets first SisowBilling::Ideal PaymentMethod as payment_method" do
       payment_method = double(:payment_method)
-      expect(Spree::PaymentMethod).to receive(:where).
+      expect(Spree::PaymentMethod).to receive(:find_by!).
         with(type: billing_class.to_s).
-        and_return([payment_method])
+        and_return(payment_method)
 
       expect(payments_arel).to receive(:create).
         with(hash_including(payment_method: payment_method))
@@ -97,6 +97,10 @@ describe Spree::PaymentMethod::SisowBilling, type: :model do
     it "should respond to .cancelled? with false" do
       expect(subject.cancelled?).to be false
     end
+  end
+
+  before do
+    allow(Spree::PaymentMethod).to receive(:find_by!).and_return(subject)
   end
 
   describe "#start_transaction" do

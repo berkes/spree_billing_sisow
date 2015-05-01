@@ -17,6 +17,10 @@ describe Spree::PaymentMethod::SisowBilling::Ideal, type: :model do
   let(:issuer_list_response) { File.new("spec/webmock_files/ideal_issuer_output") }
   let(:sisow_redirect_url) { File.new("spec/webmock_files/ideal_redirect_url_output") }
 
+  before do
+    allow(Spree::PaymentMethod).to receive(:find_by!).with(type: subject.class.to_s).and_return(subject)
+  end
+
   it "should return the issuer list from retrieved from Sisow" do
     expect do
       stub_request(:get, "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/DirectoryRequest?merchantid=2537407799&test=true").to_return(issuer_list_response)

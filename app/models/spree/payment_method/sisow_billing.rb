@@ -102,12 +102,7 @@ module Spree
     def payment_method
       type = @sisow_transaction.transaction_type
       class_name = "Spree::PaymentMethod::SisowBilling::#{type.classify}"
-
-      if Object.const_defined?(class_name)
-        PaymentMethod.where(type: class_name).first
-      else
-        raise "Unknown payment method (#{type})"
-      end
+      PaymentMethod.find_by!(type: class_name)
     end
 
     def initialize_callback(sisow_return_data)
