@@ -1,31 +1,35 @@
-require 'spec_helper'
+require "spec_helper"
 
-feature 'checkout' do
+feature "checkout" do
   let(:user) { create(:user) }
   let(:order) { OrderWalkthrough.up_to(:delivery) }
-  let(:sisow_request_url) { 'http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/TransactionRequest' }
+  let(:sisow_request_url) do
+    "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/TransactionRequest"
+  end
 
   before do
     allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
     allow_any_instance_of(Spree::CheckoutController).to receive_messages(try_spree_current_user: user)
     allow_any_instance_of(Spree::OrdersController).to receive_messages(try_spree_current_user: user)
 
-    stub_request(:get, sisow_request_url).with(query: hash_including(sisow_request_params)).to_return(redirect_url_response)
+    stub_request(:get, sisow_request_url)
+      .with(query: hash_including(sisow_request_params))
+      .to_return(redirect_url_response)
   end
 
   context "site has has paymentmethod iDeal" do
-    let(:ideal) { Spree::PaymentMethod::SisowBilling::Ideal.create!(name: 'iDeal') }
+    let(:ideal) { Spree::PaymentMethod::SisowBilling::Ideal.create!(name: "iDeal") }
     let(:issuer_list_response) { File.new("spec/webmock_files/ideal_issuer_output") }
     let(:redirect_url_response) { File.new("spec/webmock_files/ideal_redirect_url_output") }
     let(:sisow_request_params) do
-      { amount: '2000',
+      { amount: "2000",
         callbackurl: "http://www.example.com/sisow/#{order.number}",
         cancelurl: "http://www.example.com/orders/#{order.number}/checkout/sisow_cancel",
         description: "Spree Test Store - Order: #{order.number}",
-        issuerid: '09', # Triodos Bank
+        issuerid: "09", # Triodos Bank
         merchantid: '2537407799',
         notifyurl: "http://www.example.com/sisow/#{order.number}",
-        payment: 'ideal',
+        payment: "ideal",
         purchaseid: order.number,
         returnurl: "http://www.example.com/orders/#{order.number}/checkout/sisow_return",
         shop_id: '' }
@@ -34,7 +38,7 @@ feature 'checkout' do
       # sha1: 'e265b37b3256de19661793cae2abc0866c0207d5',
     end
     let(:sisow_directory_url) { 'http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/DirectoryRequest' }
-    let(:sisow_directory_params) { { merchantid: '2537407799' } }
+    let(:sisow_directory_params) { { merchantid: "2537407799" } }
 
     before do
       allow(order).to receive_messages(available_payment_methods: [ideal])
@@ -54,8 +58,8 @@ feature 'checkout' do
     end
 
     scenario "I select 'Triodos Bank' it creates a transaction at Sisow and redirects me there" do
-      select 'Triodos Bank', from: :issuer_id
-      click_button 'Save and Continue'
+      select "Triodos Bank", from: :issuer_id
+      click_button "Save and Continue"
       expect(WebMock).to have_requested(:get, sisow_request_url). with(query: hash_including(sisow_request_params))
       response = page.driver.response
       expect(response.status).to be 302
@@ -64,16 +68,16 @@ feature 'checkout' do
   end
 
   context "site has has paymentmethod Paypal" do
-    let(:paypal) { Spree::PaymentMethod::SisowBilling::Paypalec.create!(name: 'Paypal') }
+    let(:paypal) { Spree::PaymentMethod::SisowBilling::Paypalec.create!(name: "Paypal") }
     let(:redirect_url_response) { File.new("spec/webmock_files/paypal_redirect_url_output") }
     let(:sisow_request_params) do
-      { amount: '2000',
+      { amount: "2000",
         callbackurl: "http://www.example.com/sisow/#{order.number}",
         cancelurl: "http://www.example.com/orders/#{order.number}/checkout/sisow_cancel",
         description: "Spree Test Store - Order: #{order.number}",
-        merchantid: '2537407799',
+        merchantid: "2537407799",
         notifyurl: "http://www.example.com/sisow/#{order.number}",
-        payment: 'paypalec',
+        payment: "paypalec",
         purchaseid: order.number,
         returnurl: "http://www.example.com/orders/#{order.number}/checkout/sisow_return",
         shop_id: '' }
@@ -91,7 +95,7 @@ feature 'checkout' do
     end
 
     scenario "I choose the only payment option Paypal, and Sisow and redirects me there" do
-      click_button 'Save and Continue'
+      click_button "Save and Continue"
       expect(WebMock).to have_requested(:get, sisow_request_url).with(query: hash_including(sisow_request_params))
       response = page.driver.response
       expect(response.status).to be 302

@@ -46,7 +46,7 @@ module Spree
     def start_transaction(transaction_type, opts = {})
       @sisow_transaction = SisowTransaction.create(
         transaction_type: transaction_type,
-        status: 'pending')
+        status: "pending")
 
       @payment = @order.payments.create(amount: @order.total,
                                         source: @sisow_transaction,
@@ -86,13 +86,13 @@ module Spree
 
     def payment_provider(transaction_type, options)
       case transaction_type
-        when 'ideal'
+        when "ideal"
           return Sisow::IdealPayment.new(options)
-        when 'bancontact'
+        when "bancontact"
           return Sisow::BancontactPayment.new(options)
-        when 'sofort'
+        when "sofort"
           return Sisow::SofortPayment.new(options)
-        when 'paypalec'
+        when "paypalec"
           return Sisow::PaypalPayment.new(options)
         else
           raise "Unknown payment method (#{transaction_type})"

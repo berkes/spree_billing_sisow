@@ -35,7 +35,7 @@ feature 'callback' do
   }
 
   before do
-    ideal = Spree::PaymentMethod::SisowBilling::Ideal.create!(name: 'iDeal')
+    ideal = Spree::PaymentMethod::SisowBilling::Ideal.create!(name: "iDeal")
     transaction = Spree::SisowTransaction.create!(
       transaction_id: transaction_id,
       entrance_code: entrance_code,
