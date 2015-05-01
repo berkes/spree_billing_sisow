@@ -29,12 +29,14 @@ feature "checkout" do
         payment: "ideal",
         purchaseid: order.number,
         returnurl: "http://www.example.com/orders/#{order.number}/checkout/sisow_return",
-        shop_id: '' }
+        shop_id: "" }
       # Dynamic params, omitted
       # entrancecode: 'PIL6IDY7',
       # sha1: 'e265b37b3256de19661793cae2abc0866c0207d5',
     end
-    let(:sisow_directory_url) { 'http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/DirectoryRequest' }
+    let(:sisow_directory_url) do
+      "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/DirectoryRequest"
+    end
     let(:sisow_directory_params) { { merchantid: "2537407799" } }
 
     before do
