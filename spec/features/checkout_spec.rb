@@ -8,9 +8,7 @@ feature "checkout" do
   end
 
   before do
-    allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-    allow_any_instance_of(Spree::CheckoutController).to receive_messages(try_spree_current_user: user)
-    allow_any_instance_of(Spree::OrdersController).to receive_messages(try_spree_current_user: user)
+    stub_user_with_order(user, order)
 
     stub_request(:get, sisow_request_url)
       .with(query: hash_including(sisow_request_params))

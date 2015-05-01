@@ -50,9 +50,7 @@ feature 'callback' do
       number: entrance_code);
     order.state = "payment"
 
-    allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-    allow_any_instance_of(Spree::CheckoutController).to receive_messages(try_spree_current_user: user)
-    allow_any_instance_of(Spree::OrdersController).to receive_messages(try_spree_current_user: user)
+    stub_user_with_order(user, order)
   end
 
   context 'when sisow has not yet sent a success callback' do
