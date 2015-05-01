@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 feature 'callback' do
-  let(:ideal) { Spree::PaymentMethod::SisowBilling::Ideal.create!(name: 'iDeal') }
-  let(:issuer_list_response) { File.new("spec/webmock_files/ideal_issuer_output_test") }
-  let(:ideal_redirect_url_response) { File.new("spec/webmock_files/ideal_redirect_url_output") }
   let(:user) { create(:user) }
   let(:order) { OrderWalkthrough.up_to(:delivery) }
   let(:sisow_request_url) { 'http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/TransactionRequest' }
@@ -36,6 +33,7 @@ feature 'callback' do
   }
 
   before do
+    ideal = Spree::PaymentMethod::SisowBilling::Ideal.create!(name: "iDeal")
     transaction = Spree::SisowTransaction.create!(
       transaction_id: transaction_id,
       entrance_code: entrance_code,
@@ -50,9 +48,7 @@ feature 'callback' do
       number: entrance_code);
     order.state = "payment"
 
-    allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-    allow_any_instance_of(Spree::CheckoutController).to receive_messages(try_spree_current_user: user)
-    allow_any_instance_of(Spree::OrdersController).to receive_messages(try_spree_current_user: user)
+    stub_user_with_order(user, order)
   end
 
   context 'when sisow has not yet sent a success callback' do

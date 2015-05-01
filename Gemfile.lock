@@ -13,7 +13,7 @@ GIT
 PATH
   remote: .
   specs:
-    spree_billing_sisow (0.2.3)
+    spree_billing_sisow (0.3.0)
       sisow (~> 1.5)
       spree_core (~> 3.0.0)
       spree_frontend (~> 3.0.0)
