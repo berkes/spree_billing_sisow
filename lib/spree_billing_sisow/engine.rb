@@ -24,7 +24,8 @@ module SpreeBillingSisow
       app.config.spree.payment_methods += [
         Spree::PaymentMethod::SisowBilling::Ideal,
         Spree::PaymentMethod::SisowBilling::Bancontact,
-        Spree::PaymentMethod::SisowBilling::Sofort
+        Spree::PaymentMethod::SisowBilling::Sofort,
+        Spree::PaymentMethod::SisowBilling::Paypalec
       ]
     end
   end

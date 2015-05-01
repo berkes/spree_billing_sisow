@@ -1,8 +1,8 @@
 module Spree
   class PaymentMethod::SisowBilling
-    class Bancontact < SisowPaymentMethod
+    class Paypalec < SisowPaymentMethod
       def payment_type
-        "bancontact"
+        "paypalec"
       end
     end
   end

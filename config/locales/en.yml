@@ -3,6 +3,7 @@ en:
     sisow_ideal: "Sisow Ideal"
     sisow_bancontact: "Sisow Bancontact"
     sisow_sofort: "Sisow Sofort"
+    sisow_paypalec: "Sisow Paypal Express Checkout"
     bank_selection: "Select your bank"
     sisow_settings_updated: "Sisow settings updated"
     sisow_transaction: "Sisow transaction"
