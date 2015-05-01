@@ -86,16 +86,12 @@ module Spree
 
     def payment_provider(transaction_type, options)
       case transaction_type
-        when "ideal"
-          return Sisow::IdealPayment.new(options)
-        when "bancontact"
-          return Sisow::BancontactPayment.new(options)
-        when "sofort"
-          return Sisow::SofortPayment.new(options)
-        when "paypalec"
-          return Sisow::PaypalPayment.new(options)
-        else
-          raise "Unknown payment method (#{transaction_type})"
+      when "ideal" then Sisow::IdealPayment.new(options)
+      when "bancontact" then Sisow::BancontactPayment.new(options)
+      when "sofort" then Sisow::SofortPayment.new(options)
+      when "paypalec" then Sisow::PaypalPayment.new(options)
+      else
+        raise "Unknown payment method (#{transaction_type})"
       end
     end
 
