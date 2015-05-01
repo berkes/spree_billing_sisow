@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 feature 'callback' do
-  let(:ideal) { Spree::PaymentMethod::SisowBilling::Ideal.create!(name: 'iDeal') }
   let(:issuer_list_response) { File.new("spec/webmock_files/ideal_issuer_output_test") }
   let(:ideal_redirect_url_response) { File.new("spec/webmock_files/ideal_redirect_url_output") }
   let(:user) { create(:user) }
@@ -36,6 +35,7 @@ feature 'callback' do
   }
 
   before do
+    ideal = Spree::PaymentMethod::SisowBilling::Ideal.create!(name: 'iDeal')
     transaction = Spree::SisowTransaction.create!(
       transaction_id: transaction_id,
       entrance_code: entrance_code,
