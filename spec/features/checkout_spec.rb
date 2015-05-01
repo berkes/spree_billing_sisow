@@ -17,8 +17,7 @@ feature "checkout" do
 
   context "site has has paymentmethod iDeal" do
     let(:ideal) { Spree::PaymentMethod::SisowBilling::Ideal.create!(name: "iDeal") }
-    let(:issuer_list_response) { File.new("spec/webmock_files/ideal_issuer_output") }
-    let(:redirect_url_response) { File.new("spec/webmock_files/ideal_redirect_url_output") }
+    let(:redirect_url_response) { stored_response("ideal_redirect_url_output") }
     let(:sisow_request_params) do
       { amount: "2000",
         callbackurl: "http://www.example.com/sisow/#{order.number}",
@@ -41,7 +40,9 @@ feature "checkout" do
     before do
       allow(order).to receive_messages(available_payment_methods: [ideal])
 
-      stub_request(:get, sisow_directory_url).with(query: hash_including(sisow_directory_params)).to_return(issuer_list_response)
+      stub_request(:get, sisow_directory_url)
+        .with(query: hash_including(sisow_directory_params))
+        .to_return(stored_response("ideal_issuer_output"))
 
       visit spree.checkout_state_path(:payment)
 
@@ -66,8 +67,12 @@ feature "checkout" do
   end
 
   context "site has has paymentmethod Paypal" do
-    let(:paypal) { Spree::PaymentMethod::SisowBilling::Paypalec.create!(name: "Paypal") }
-    let(:redirect_url_response) { File.new("spec/webmock_files/paypal_redirect_url_output") }
+    let(:paypal) do
+      Spree::PaymentMethod::SisowBilling::Paypalec.create!(name: "Paypal")
+    end
+    let(:redirect_url_response) do
+      stored_response("paypal_redirect_url_output")
+    end
     let(:sisow_request_params) do
       { amount: "2000",
         callbackurl: "http://www.example.com/sisow/#{order.number}",

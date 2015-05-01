@@ -29,9 +29,6 @@ describe Spree::PaymentMethod::SisowBilling::Paypalec do
     }
   }
 
-  # Webmock request files
-  let(:sisow_redirect_url) { File.new("spec/webmock_files/paypal_redirect_url_output") }
-
   before do
     allow(Spree::PaymentMethod).to receive(:find_by!).with(type: subject.class.to_s).and_return(subject)
   end
@@ -59,7 +56,7 @@ describe Spree::PaymentMethod::SisowBilling::Paypalec do
         "sha1" => sha1,
         "shop_id" => "",
         "test" => "true"})
-      .to_return(sisow_redirect_url)
+      .to_return(stored_response("paypal_redirect_url_output"))
   end
 
 

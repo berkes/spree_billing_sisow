@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 feature 'callback' do
-  let(:issuer_list_response) { File.new("spec/webmock_files/ideal_issuer_output_test") }
-  let(:ideal_redirect_url_response) { File.new("spec/webmock_files/ideal_redirect_url_output") }
   let(:user) { create(:user) }
   let(:order) { OrderWalkthrough.up_to(:delivery) }
   let(:sisow_request_url) { 'http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/TransactionRequest' }
