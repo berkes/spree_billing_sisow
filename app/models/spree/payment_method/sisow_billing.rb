@@ -92,6 +92,8 @@ module Spree
           return Sisow::BancontactPayment.new(options)
         when 'sofort'
           return Sisow::SofortPayment.new(options)
+        when 'paypalec'
+          return Sisow::PaypalPayment.new(options)
         else
           raise "Unknown payment method (#{transaction_type})"
       end
