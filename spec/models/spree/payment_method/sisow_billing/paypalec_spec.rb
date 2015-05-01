@@ -40,8 +40,8 @@ describe Spree::PaymentMethod::SisowBilling::Paypalec do
 
     allow(order).to receive_message_chain(:payments, :create).and_return(payment)
 
-    stub_request(:get, "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/TransactionRequest")
-      .with(query: {
+    stub_request(:get, "http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/TransactionRequest").
+      with(query: {
         "amount" => "300",
         "callbackurl" => "",
         "cancelurl" => "http://www.example.com/cancel",
@@ -55,8 +55,8 @@ describe Spree::PaymentMethod::SisowBilling::Paypalec do
         "returnurl" => "http://www.example.com/return",
         "sha1" => sha1,
         "shop_id" => "",
-        "test" => "true"})
-      .to_return(stored_response("paypal_redirect_url_output"))
+        "test" => "true"}).
+       to_return(stored_response("paypal_redirect_url_output"))
   end
 
 

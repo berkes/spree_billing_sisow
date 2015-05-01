@@ -10,9 +10,9 @@ feature "checkout" do
   before do
     stub_user_with_order(user, order)
 
-    stub_request(:get, sisow_request_url)
-      .with(query: hash_including(sisow_request_params))
-      .to_return(redirect_url_response)
+    stub_request(:get, sisow_request_url).
+      with(query: hash_including(sisow_request_params)).
+      to_return(redirect_url_response)
   end
 
   context "site has has paymentmethod iDeal" do
@@ -40,9 +40,9 @@ feature "checkout" do
     before do
       allow(order).to receive_messages(available_payment_methods: [ideal])
 
-      stub_request(:get, sisow_directory_url)
-        .with(query: hash_including(sisow_directory_params))
-        .to_return(stored_response("ideal_issuer_output"))
+      stub_request(:get, sisow_directory_url).
+        with(query: hash_including(sisow_directory_params)).
+        to_return(stored_response("ideal_issuer_output"))
 
       visit spree.checkout_state_path(:payment)
 
