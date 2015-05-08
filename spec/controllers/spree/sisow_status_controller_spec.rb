@@ -1,21 +1,28 @@
 require 'spec_helper'
 
 describe Spree::SisowStatusController, type: :controller do
-  let(:order) {
-    Spree::Order.new(:bill_address => Spree::Address.new,
-                     :ship_address => Spree::Address.new)
-  }
-
+  let(:payments) { Spree::Payment.none }
+  let(:order) do
+    mock_model(Spree::Order,
+               payments: payments,
+               next!: true,
+               complete?: false)
+  end
   let(:payment_method) { double(Spree::PaymentMethod::SisowBilling) }
-
   let(:params) do
     {
         "order_id" => "O12345678",
         "trxid" => "12345",
         "ec" => "54321",
-        "status" => "Pending",
+        "status" => "Success",
         "sha1" => "1234567890"
     }
+  end
+
+  before do
+    allow(Spree::Order).to receive(:find_by_number!).
+      with("O12345678").
+      and_return(order)
   end
 
   it "should update the transaction status" do
@@ -24,10 +31,24 @@ describe Spree::SisowStatusController, type: :controller do
     test_params.merge!({"controller" => "spree/sisow_status", "action"=>"update"})
     expect(payment_method).to receive(:process_response).with(test_params)
 
-    allow(Spree::Order).to receive(:find_by_number!).with("O12345678").and_return(order)
     allow(Spree::PaymentMethod::SisowBilling).to receive(:new).and_return(payment_method)
 
     spree_post :update, params
+  end
+
+  context "order has not been finished by returning customer" do
+    it "should finish the order" do
+      expect(order).to receive(:next!)
+      spree_post :update, params
+    end
+  end
+
+  context "order has aldready been finished by returning customer" do
+    before { allow(order).to receive(:complete?).and_return true }
+    it "should not finish the order again" do
+      expect(order).not_to receive(:next!)
+      spree_post :update, params
+    end
   end
 
   context "confirming a none-existing order" do

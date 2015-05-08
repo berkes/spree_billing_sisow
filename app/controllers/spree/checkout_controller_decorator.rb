@@ -4,6 +4,9 @@ module Spree
 
     def sisow_return
       handle_sisow_response
+      # We call +next+, not +next!+ because we don't want this to raise
+      # exceptions when the callback has already processed and completed the
+      # order.
       @order.reload.next
       if @order.complete?
         flash.notice = Spree.t(:order_processed_successfully)
