@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_billing_sisow'
-  s.version     = '0.3.0'
+  s.version     = '0.4.0'
   s.summary     = 'Spree billing integration for Sisow payment provider'
   s.description = 'Spree billing integration for Sisow iDeal/Bancontact/Sofort/Paypal payments'
   s.required_ruby_version = '>= 1.9.3'
