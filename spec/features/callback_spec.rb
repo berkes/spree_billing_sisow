@@ -56,6 +56,7 @@ feature 'callback' do
       visit "/orders/#{order.number}/checkout/sisow_return?trxid=#{transaction_id}&ec=#{entrance_code}&status=Success&sha1=#{sha1}"
       expect(page).to have_content "Your order has been processed successfully"
       expect(page).to have_content "Payment Information iDeal"
+      expect(order.reload.state).to eq "complete"
     end
   end
 
@@ -69,24 +70,19 @@ feature 'callback' do
       visit "/orders/#{order.number}/checkout/sisow_return?trxid=#{transaction_id}&ec=#{entrance_code}&status=Success&sha1=#{sha1}"
       expect(page).to have_content "Your order has been processed successfully"
       expect(page).to have_content "Payment Information iDeal"
+
+      expect(order.reload.state).to eq "complete"
     end
   end
 
   context 'when sisow has sent a success callback' do
-    scenario 'I cancel my return to the shop' do
+    scenario "I don't follow the link and don't return to the shop" do
       # Callback by Sisow servers
       visit "/sisow/#{order.number}?trxid=#{transaction_id}&ec=#{entrance_code}&status=Success&sha1=#{sha1}&notify=true&callback=true"
       expect(page.driver.response.status).to be 200
 
-      # TODO: Implement callback so that it finishes the order and the
-      #       Payment: it is more likely that the callback succeeds then that
-      #       the user is correctly redirected back.
-      #       We should depend on the first and allow the latter. Now we do it the other
-      #       way around.
-      # order.reload
-      # expect(order.state).to be 'finished'
-      # expect(order.payments.first.state).to be 'checkout'
-      expect(order.payments.first.source.status).to eq "Success"
+      expect(order.reload.state).to eq "complete"
+      expect(order.payments.first.state).to eq "completed"
     end
   end
 end
