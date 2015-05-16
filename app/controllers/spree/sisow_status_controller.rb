@@ -6,7 +6,7 @@ module Spree
         sisow = PaymentMethod::SisowBilling.new(order)
         sisow.process_response(params)
 
-        order.next! unless order.complete?
+        order.next unless order.completed?
         render :text => ""
       rescue ActiveRecord::RecordNotFound
         logger.error "ERROR: Sisow reply failed, order (#{params[:order_id]}) not found"
