@@ -5,8 +5,8 @@ describe Spree::SisowStatusController, type: :controller do
   let(:order) do
     mock_model(Spree::Order,
                payments: payments,
-               next!: true,
-               complete?: false)
+               next: true,
+               completed?: false)
   end
   let(:payment_method) { double(Spree::PaymentMethod::SisowBilling) }
   let(:params) do
@@ -38,15 +38,15 @@ describe Spree::SisowStatusController, type: :controller do
 
   context "order has not been finished by returning customer" do
     it "should finish the order" do
-      expect(order).to receive(:next!)
+      expect(order).to receive(:next)
       spree_post :update, params
     end
   end
 
   context "order has aldready been finished by returning customer" do
-    before { allow(order).to receive(:complete?).and_return true }
+    before { allow(order).to receive(:completed?).and_return true }
     it "should not finish the order again" do
-      expect(order).not_to receive(:next!)
+      expect(order).not_to receive(:next)
       spree_post :update, params
     end
   end
