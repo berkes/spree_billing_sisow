@@ -34,14 +34,13 @@ module Spree
 
     def confirm_sisow
       return unless (params[:state] == "payment") && params[:order][:payments_attributes]
-
       payment_method = PaymentMethod.find(payment_method_id_param)
+      return unless payment_method.is_a?(PaymentMethod::SisowBilling::SisowPaymentMethod)
 
       opts = return_url_opts
       if payment_method.is_a?(PaymentMethod::SisowBilling::Ideal)
         opts[:issuer_id] = params[:issuer_id]
       end
-
       redirect_to payment_method.redirect_url(@order, opts)
     end
 
