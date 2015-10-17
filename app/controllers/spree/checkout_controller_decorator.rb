@@ -33,9 +33,9 @@ module Spree
     end
 
     def confirm_sisow
-      return unless (params[:state] == "payment") && params[:order][:payments_attributes]
+      return unless confirm_params_valid?
       payment_method = PaymentMethod.find(payment_method_id_param)
-      return unless payment_method.is_a?(PaymentMethod::SisowBilling::SisowPaymentMethod)
+      return unless sisow_payment_method?(payment_method)
 
       opts = return_url_opts
       if payment_method.is_a?(PaymentMethod::SisowBilling::Ideal)
@@ -55,6 +55,14 @@ module Spree
 
     def payment_method_id_param
       params[:order][:payments_attributes].first[:payment_method_id]
+    end
+
+    def confirm_params_valid?
+      (params[:state] == "payment") && params[:order][:payments_attributes]
+    end
+
+    def sisow_payment_method?(payment_method)
+      payment_method.is_a?(PaymentMethod::SisowBilling::SisowPaymentMethod)
     end
   end
 end
