@@ -13,7 +13,7 @@ GIT
 PATH
   remote: .
   specs:
-    spree_billing_sisow (0.4.3)
+    spree_billing_sisow (0.4.4)
       sisow (~> 1.5)
       spree_core (~> 3.0.0)
       spree_frontend (~> 3.0.0)
@@ -81,7 +81,7 @@ GEM
       slop (~> 3.6)
     camertron-eprun (1.1.0)
     cancancan (1.10.1)
-    canonical-rails (0.0.9)
+    canonical-rails (0.0.11)
       rails (>= 3.1, < 5.0)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -141,13 +141,13 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    hashie (3.4.1)
+    hashie (3.4.3)
     highline (1.6.21)
     htmlentities (4.3.4)
     httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    httpi (2.4.0)
+    httpi (2.4.1)
       rack
     i18n (0.7.0)
     jquery-rails (4.0.3)
