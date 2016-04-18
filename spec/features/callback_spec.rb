@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'callback' do
   let(:user) { create(:user) }
-  let(:order) { OrderWalkthrough.up_to(:delivery) }
+  let(:order) { OrderWalkthrough.up_to(:payment) }
   let(:sisow_request_url) { 'http://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/TransactionRequest' }
   let(:sisow_request_params) do
     { amount: '2000',
