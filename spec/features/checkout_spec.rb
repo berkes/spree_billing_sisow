@@ -19,7 +19,7 @@ feature "checkout" do
     let(:ideal) { Spree::PaymentMethod::SisowBilling::Ideal.create!(name: "iDeal") }
     let(:redirect_url_response) { stored_response("ideal_redirect_url_output") }
     let(:sisow_request_params) do
-      { amount: "2000",
+      { amount: "2999",
         callbackurl: "http://www.example.com/sisow/#{order.number}",
         cancelurl: "http://www.example.com/orders/#{order.number}/checkout/sisow_cancel",
         description: "Spree Test Store - Order: #{order.number}",
@@ -76,7 +76,7 @@ feature "checkout" do
       stored_response("paypal_redirect_url_output")
     end
     let(:sisow_request_params) do
-      { amount: "2000",
+      { amount: "2999",
         callbackurl: "http://www.example.com/sisow/#{order.number}",
         cancelurl: "http://www.example.com/orders/#{order.number}/checkout/sisow_cancel",
         description: "Spree Test Store - Order: #{order.number}",
