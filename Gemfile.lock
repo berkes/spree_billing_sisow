@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/spree/spree_auth_devise.git
-  revision: 145a06354a39a7ceeea4ad93e39c63c1ecb13c52
+  remote: https://github.com/spree/spree_auth_devise
+  revision: 1ac9dcc33049b185a0dd884c832583feb4b91890
   branch: 3-0-stable
   specs:
     spree_auth_devise (3.0.6)
@@ -118,7 +118,7 @@ GEM
       nokogiri (~> 1.6.0)
       polyglot
       rails (>= 3.1)
-    devise (3.5.6)
+    devise (3.5.10)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -350,7 +350,7 @@ GEM
       activesupport (>= 3.2)
       railties (>= 3.2)
       tzinfo
-    warden (1.2.6)
+    warden (1.2.7)
       rack (>= 1.0)
     webmock (1.20.0)
       addressable (>= 2.3.6)
@@ -383,4 +383,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.11.2
+   1.15.0
