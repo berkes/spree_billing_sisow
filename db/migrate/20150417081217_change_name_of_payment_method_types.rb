@@ -1,4 +1,4 @@
-class ChangeNameOfPaymentMethodTypes < ActiveRecord::Migration
+class ChangeNameOfPaymentMethodTypes < ActiveRecord::Migration[5.0]
   def up
     name_maps.each do |old, new|
       Spree::PaymentMethod.where(type: old).update_all(type: new)
