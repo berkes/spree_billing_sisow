@@ -16,11 +16,11 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 3.1.0'
-  s.add_dependency 'spree_frontend', '~> 3.1.0'
+  s.add_dependency 'spree_core', '~> 3.4.0'
+  s.add_dependency 'spree_frontend', '~> 3.4.0'
   s.add_dependency 'sisow', '~> 1.5'
 
-  s.add_development_dependency 'spree_backend', '~> 3.1.0' # Needed to test the backend interface
+  s.add_development_dependency 'spree_backend', '~> 3.4.0' # Needed to test the backend interface
   s.add_development_dependency 'capybara', '~> 2.1'
   s.add_development_dependency 'webmock'
   s.add_development_dependency 'coffee-rails'
