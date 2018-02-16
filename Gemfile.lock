@@ -124,7 +124,7 @@ GEM
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.7.0)
-    factory_girl (4.8.0)
+    factory_bot (4.8.2)
       activesupport (>= 3.0.0)
     ffaker (2.2.0)
     font-awesome-rails (4.7.0.2)
@@ -365,7 +365,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   coffee-rails
   database_cleaner
-  factory_girl (~> 4.2)
+  factory_bot
   ffaker
   launchy
   rb-readline
@@ -373,12 +373,12 @@ DEPENDENCIES
   rspec-rails (~> 3.5)
   sass-rails
   simplecov
-  spree_auth_devise!
-  spree_backend (~> 3.1.0)
+  spree_auth_devise (~> 3.2)
+  spree_backend (~> 3.4.0)
   spree_billing_sisow!
   sqlite3
   therubyracer
   webmock
 
 BUNDLED WITH
-   1.15.0
+   1.16.1
