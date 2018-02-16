@@ -34,18 +34,16 @@ module Spree
 
     def confirm_sisow
       return unless confirm_params_valid?
-      payment_method = PaymentMethod.find(payment_method_id_param)
       return unless sisow_payment_method?(payment_method)
 
-      opts = return_url_opts
       if payment_method.is_a?(PaymentMethod::SisowBilling::Ideal)
-        opts[:issuer_id] = params[:issuer_id]
+        return_url_opts[:issuer_id] = params[:issuer_id]
       end
-      redirect_to payment_method.redirect_url(@order, opts)
+      redirect_to payment_method.redirect_url(@order, return_url_opts)
     end
 
     def return_url_opts
-      {
+      @return_url_opts ||= {
         return_url: sisow_return_order_checkout_url(@order),
         cancel_url: sisow_cancel_order_checkout_url(@order),
         notify_url: sisow_status_update_url(@order),
@@ -63,6 +61,10 @@ module Spree
 
     def sisow_payment_method?(payment_method)
       payment_method.is_a?(PaymentMethod::SisowBilling::SisowPaymentMethod)
+    end
+
+    def payment_method
+      @payment_method ||= PaymentMethod.find(payment_method_id_param)
     end
   end
 end
