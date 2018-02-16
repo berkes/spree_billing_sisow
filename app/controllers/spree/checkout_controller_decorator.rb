@@ -1,6 +1,6 @@
 module Spree
   CheckoutController.class_eval do
-    before_filter :confirm_sisow, only: [:update]
+    before_action :confirm_sisow, only: [:update]
 
     def sisow_return
       handle_sisow_response
