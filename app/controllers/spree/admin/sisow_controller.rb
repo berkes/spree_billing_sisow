@@ -17,7 +17,6 @@ module Spree
                                             :sisow_test_mode,
                                             :sisow_debug_mode)
       end
-
     end
   end
 end

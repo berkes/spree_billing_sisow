@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeNameOfPaymentMethodTypes < ActiveRecord::Migration[5.0]
   def up
     name_maps.each do |old, new|

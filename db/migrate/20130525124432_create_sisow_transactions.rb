@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSisowTransactions < ActiveRecord::Migration[5.0]
   def change
     create_table :spree_sisow_transactions do |t|
