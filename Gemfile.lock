@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    spree_billing_sisow (0.6.1)
+    spree_billing_sisow (0.7.1)
       sisow (~> 1.5)
       spree_core (~> 3.4.0)
       spree_frontend (~> 3.4.0)
