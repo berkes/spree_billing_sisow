@@ -51,7 +51,7 @@ RSpec.configure do |config|
   config.include WebMockFixtureHelpers
 
   config.include Spree::TestingSupport::ControllerRequests, :type => :controller
-  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::Test::ControllerHelpers, :type => :controller
 
   # Allow resetting of config.
   config.include Spree::TestingSupport::Preferences
