@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Type: text/xml; charset=utf-8
+Server: Microsoft-IIS/7.0
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Fri, 01 May 2015 08:27:14 GMT
+Content-Length: 451
+
+<?xml version="1.0" encoding="UTF-8"?><transactionrequest xmlns="https://www.sisow.nl/Sisow/REST" version="1.0.0"><transaction><issuerurl>https%3a%2f%2fwww.sisow.nl%2fSisow%2fiDeal%2fSimulator.aspx%3fmerchantid%3d2537407799%26txid%3dTEST90488925266%26sha1%3d1eb7cba3b911839f7431ec39103f2c2967399580</issuerurl><trxid>TEST90488925266</trxid></transaction><signature><sha1>0f3236350878aa51d9ec09973ee50175cd99076a</sha1></signature></transactionrequest>

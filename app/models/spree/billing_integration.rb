@@ -7,18 +7,27 @@ class Spree::BillingIntegration
       end
     end
 
-    class Ideal < Method
-      def self.new(*attrs)
-        super
-        ::Spree::PaymentMethod::SisowBilling::Ideal.new(*attrs)
-      end
-    end
     class Bancontact < Method
       def self.new(*attrs)
         super
         ::Spree::PaymentMethod::SisowBilling::Bancontact.new(*attrs)
       end
     end
+
+    class Creditcard < Method
+      def self.new(*attrs)
+        super
+        ::Spree::PaymentMethod::SisowBilling::Creditcard.new(*attrs)
+      end
+    end
+
+    class Ideal < Method
+      def self.new(*attrs)
+        super
+        ::Spree::PaymentMethod::SisowBilling::Ideal.new(*attrs)
+      end
+    end
+
     class Sofort < Method
       def self.new(*attrs)
         super
