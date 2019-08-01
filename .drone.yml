@@ -1,0 +1,12 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: test
+    image: ruby:2.5.0
+    environment:
+      RAILS_ENV: test
+    commands:
+      - bundle install --without production,development
+      - bundle exec rake test_app
+      - bundle exec spec
