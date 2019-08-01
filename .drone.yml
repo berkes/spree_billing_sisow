@@ -1,32 +1,12 @@
-pipeline:
-  restore-cache:
-    image: drillster/drone-volume-cache
-    restore: true
-    mount:
-      - ./bundle
-    volumes:
-      - /tmp/cache:/cache
+kind: pipeline
+name: default
 
-  build:
-    image: juicymo/drone-ruby:2.5.3
+steps:
+  - name: test
+    image: ruby:2.5.0
     environment:
-      - RAILS_ENV=test
+      RAILS_ENV: test
     commands:
-      - bundle install --path ./bundle --without production,development
-
-  rebuild-cache:
-    image: drillster/drone-volume-cache
-    rebuild: true
-    mount:
-      - ./bundle
-    volumes:
-    - /tmp/cache:/cache
-
-  test:
-    image: juicymo/drone-ruby:2.5.3
-    environment:
-      - RAILS_ENV=test
-    commands:
-      - bundle install --path ./bundle --without production,development
+      - bundle install --without production,development
       - bundle exec rake test_app
       - bundle exec spec
