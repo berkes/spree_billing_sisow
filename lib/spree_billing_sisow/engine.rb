@@ -23,6 +23,7 @@ module SpreeBillingSisow
     initializer "spree_billing_sisow.register.payment_methods", :after => 'spree.register.payment_methods' do |app|
       app.config.spree.payment_methods += [
         Spree::PaymentMethod::SisowBilling::Ideal,
+        Spree::PaymentMethod::SisowBilling::Creditcard,
         Spree::PaymentMethod::SisowBilling::Bancontact,
         Spree::PaymentMethod::SisowBilling::Sofort,
         Spree::PaymentMethod::SisowBilling::Paypalec
