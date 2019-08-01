@@ -88,6 +88,7 @@ module Spree
       case transaction_type
       when "ideal" then Sisow::IdealPayment.new(options)
       when "bancontact" then Sisow::BancontactPayment.new(options)
+      when "creditcard" then Sisow::CreditCardPayment.new(options)
       when "sofort" then Sisow::SofortPayment.new(options)
       when "paypalec" then Sisow::PaypalPayment.new(options)
       else
