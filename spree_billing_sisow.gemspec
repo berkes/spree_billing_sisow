@@ -1,8 +1,9 @@
 # encoding: UTF-8
+require 'rake'
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_billing_sisow'
-  s.version     = '0.9.0'
+  s.version     = '0.9.1'
   s.summary     = 'Spree billing integration for Sisow payment provider'
   s.description = 'Spree billing integration for Sisow iDeal/Bancontact/Sofort/Paypal payments'
   s.required_ruby_version = '>= 1.9.3'
@@ -11,8 +12,10 @@ Gem::Specification.new do |s|
   s.email     = ['gems@berk.es']
   s.homepage  = 'http://github.com/berkes/spree_billing_sisow'
 
-  #s.files       = `git ls-files`.split("\n")
-  #s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.files     =  FileList['app/**/*', 'config/**/*', 'db/**/*', 'lib/**/*',
+                          'README.md','LICENSE'].to_a
+
+  s.test_files  = FileList['spec/**/*']
   s.require_path = 'lib'
   s.requirements << 'none'
 
