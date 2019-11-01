@@ -1,0 +1,33 @@
+<fieldset>
+  <legend><%= Spree.t(:sisow_creditcard) %></legend>
+
+  <table class="index">
+    <tr>
+      <th colspan="6"><%= Spree.t(:sisow_transaction) %></th>
+    </tr>
+    <tr>
+      <td><label><%= Spree.t(:sisow_transaction_id) %>:</label></td>
+      <td>
+        <%= payment.source.transaction_id %>
+      </td>
+    </tr>
+    <tr>
+      <td><label><%= Spree.t(:sisow_entrance_code) %>:</label></td>
+      <td>
+        <%= payment.source.entrance_code %>
+      </td>
+    </tr>
+    <tr>
+      <td><label><%= Spree.t(:sisow_status) %>:</label></td>
+      <td>
+        <%= payment.source.status %>
+      </td>
+    </tr>
+    <tr>
+      <td><label><%= Spree.t(:sisow_sha1) %>:</label></td>
+      <td>
+        <%= payment.source.sha1 %>
+      </td>
+    </tr>
+  </table>
+</fieldset>
